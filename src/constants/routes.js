@@ -10,3 +10,5 @@ export const ACCOUNT = '/account';
 //* protected
 export const ADMIN = '/admin';
 export const PASSWORD_FORGET = '/pw-forget';
+
+export const CANVAS = '/canvas';
