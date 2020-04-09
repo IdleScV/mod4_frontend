@@ -32,6 +32,9 @@ const NavigationAuth = () => (
 			<Link to={ROUTES.CANVAS}>Canvas</Link>
 		</li>
 		<li>
+			<Link to={ROUTES.CREATEORJOINROOM}>Create or Join Room</Link>
+		</li>
+		<li>
 			<SignOutButton />
 		</li>
 	</ul>

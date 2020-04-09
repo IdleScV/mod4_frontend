@@ -11,6 +11,8 @@ import HomePage from '../Home';
 import AccountPage from '../Account';
 import AdminPage from '../Admin';
 import Canvas from '../Canvas';
+import CreateOrJoinRoom from '../CreateOrJoinRoom';
+import Lobby from '../Lobby';
 
 import * as ROUTES from '../../constants/routes';
 
@@ -31,9 +33,20 @@ const App = () => {
 				<Route path={ROUTES.ACCOUNT} component={AccountPage} />
 				<Route path={ROUTES.ADMIN} component={AdminPage} />
 				<Route path={ROUTES.CANVAS} component={Canvas} />
+				<Route path={ROUTES.CREATEORJOINROOM} component={CreateOrJoinRoom} />
+				<Route path="/room" component={Lobby} />
 			</div>
 		</Router>
 	);
 };
 
 export default withAuthentication(App);
+
+{
+	/* <Switch>
+	<Redirect from="/users/:id" to="/users/profile/:id" />
+	<Route path="/users/profile/:id">
+		<Profile />
+	</Route>
+</Switch>; */
+}

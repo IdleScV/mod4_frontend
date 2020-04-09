@@ -17,6 +17,7 @@ const INITIAL_STATE = {
 	email: '',
 	passwordOne: '',
 	passwordTwo: '',
+	firebaseID: '',
 	error: null
 };
 
@@ -33,6 +34,7 @@ class SignUpFormBase extends Component {
 			.doCreateUserWithEmailAndPassword(email, passwordOne)
 			//* saves user into firebase realtime database
 			.then((authUser) => {
+				// console.log(authUser.W, username);
 				return this.props.firebase.user(authUser.user.uid).set({
 					username,
 					email

@@ -2,8 +2,7 @@ import React from 'react';
 
 import { withAuthorization } from '../Session';
 
-const HomePage = (props) => {
-	console.log(props.firebase.auth);
+const HomePage = ({ props }) => {
 	return (
 		<div>
 			<h1>Home Page</h1>
