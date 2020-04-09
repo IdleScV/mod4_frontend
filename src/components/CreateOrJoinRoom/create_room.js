@@ -1,19 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Lobby from '../Lobby';
-import { Redirect } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 const URL = 'http://localhost:3000/rooms/';
 
-export default function CreateRoom({ userData, firebaseId }) {
+export default function CreateRoom({ userData, firebaseId, roomNumberSet }) {
+	const [ roomExist, roomExistSet ] = useState(false);
+	const [ roomNum, roomNumSet ] = useState(null);
+
 	function handleHost(e) {
 		e.preventDefault();
 		let numPeople = e.target.number.value;
 		let username = userData.username;
 		let randomRoomNum = Math.floor(Math.random() * Math.floor(9999));
-
+		console.log(firebaseId, numPeople, username, randomRoomNum);
 		fetch(URL, {
 			method: 'post',
-			header: {
+			headers: {
 				Accept: 'application/json',
 				'Content-Type': 'application/json'
 			},
@@ -30,8 +33,11 @@ export default function CreateRoom({ userData, firebaseId }) {
 
 	//* NEED TO REDIRECT USER TO A LOBBY ONCE A ROOM IS CREATED
 	function goToLobby(roomData) {
-		console.log('redirecting');
-		return <Redirect to="/room" />;
+		console.log('reached', roomData.room.room_number);
+		roomNumberSet(roomData.room.room_number);
+		roomExistSet(true);
+		roomNumSet(roomData.room.room_number);
+		// return <Redirect to="/room" />;
 	}
 
 	return (
@@ -40,6 +46,11 @@ export default function CreateRoom({ userData, firebaseId }) {
 				<input type="number" name="number" />
 				<input type="submit" value="Host" />
 			</form>
+			{roomExist ? (
+				<Link to={`/room/${roomNum}`}>
+					<button>Go To Room</button>
+				</Link>
+			) : null}
 		</div>
 	);
 }

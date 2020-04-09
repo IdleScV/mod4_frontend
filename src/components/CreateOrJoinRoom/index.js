@@ -13,8 +13,8 @@ function CreateOrJoinRoom(props) {
 
 	return (
 		<div>
-			<CreateRoom userData={userData} firebaseId={props.firebase.auth.W} />
-			<JoinRoom />
+			<CreateRoom userData={userData} firebaseId={props.firebase.auth.W} roomNumberSet={props.roomNumberSet} />
+			<JoinRoom userData={userData} firebaseId={props.firebase.auth.W} roomNumberSet={props.roomNumberSet} />
 		</div>
 	);
 }

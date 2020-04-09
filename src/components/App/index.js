@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import Navigation from '../Navigation';
 import LandingPage from '../Landing';
@@ -20,6 +20,8 @@ import * as ROUTES from '../../constants/routes';
 import { withAuthentication } from '../Session';
 
 const App = () => {
+	const [ roomNumber, roomNumberSet ] = useState(null);
+	console.log(roomNumber);
 	return (
 		<Router>
 			<div>
@@ -33,20 +35,31 @@ const App = () => {
 				<Route path={ROUTES.ACCOUNT} component={AccountPage} />
 				<Route path={ROUTES.ADMIN} component={AdminPage} />
 				<Route path={ROUTES.CANVAS} component={Canvas} />
-				<Route path={ROUTES.CREATEORJOINROOM} component={CreateOrJoinRoom} />
-				<Route path="/room" component={Lobby} />
+
+				<Route
+					path={ROUTES.CREATEORJOINROOM}
+					render={() => {
+						return <CreateOrJoinRoom roomNumberSet={roomNumberSet} />;
+					}}
+				/>
+				{roomNumber ? (
+					<Route
+						path={ROUTES.LOBBY}
+						render={() => {
+							return <Lobby roomNumber={roomNumber} />;
+						}}
+					/>
+				) : (
+					<Route
+						path={ROUTES.LOBBY}
+						render={() => {
+							return <CreateOrJoinRoom roomNumberSet={roomNumberSet} />;
+						}}
+					/>
+				)}
 			</div>
 		</Router>
 	);
 };
 
 export default withAuthentication(App);
-
-{
-	/* <Switch>
-	<Redirect from="/users/:id" to="/users/profile/:id" />
-	<Route path="/users/profile/:id">
-		<Profile />
-	</Route>
-</Switch>; */
-}

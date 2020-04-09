@@ -14,4 +14,4 @@ export const PASSWORD_FORGET = '/pw-forget';
 export const CANVAS = '/canvas';
 export const CREATEORJOINROOM = '/createjoinroom';
 
-export const LOBBY = '/room';
+export const LOBBY = '/room/:id';
