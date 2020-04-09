@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import CanvasDraw from 'react-canvas-draw';
+
 import Slider from '@material-ui/core/Slider';
-import { CirclePicker } from 'react-color';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import Button from '@material-ui/core/Button';
+import { CirclePicker } from 'react-color';
+
+import './canvas.css';
 
 export default function Canvas(props) {
 	const [ canvas, canvasSet ] = useState('');
@@ -39,7 +42,7 @@ export default function Canvas(props) {
 				</Button>
 				<Button
 					onClick={() => {
-						console.log(savedDrawing);
+						console.log((savedDrawing.split(/%..|./).length - 1) / 1000.0, 'kb');
 					}}
 				>
 					Print Saved IMG String to Console
@@ -59,27 +62,28 @@ export default function Canvas(props) {
 					console.log(color.hex);
 				}}
 			/>
-			<Slider
-				min={1}
-				value={brushRadius}
-				max={20}
-				step={0.1}
-				aria-labelledby="continuous-slider"
-				onChange={(e, newValue) => {
-					brushRadiusSet(newValue);
-				}}
-			/>
-			<Slider
-				min={1}
-				value={lazyRadius}
-				max={50}
-				step={1}
-				aria-labelledby="continuous-slider"
-				onChange={(e, newValue) => {
-					lazyRadiusSet(newValue);
-				}}
-			/>
-
+			<div className="canvasSliders">
+				<Slider
+					min={1}
+					value={brushRadius}
+					max={20}
+					step={0.1}
+					aria-labelledby="continuous-slider"
+					onChange={(e, newValue) => {
+						brushRadiusSet(newValue);
+					}}
+				/>
+				<Slider
+					min={1}
+					value={lazyRadius}
+					max={50}
+					step={1}
+					aria-labelledby="continuous-slider"
+					onChange={(e, newValue) => {
+						lazyRadiusSet(newValue);
+					}}
+				/>
+			</div>
 			<CanvasDraw
 				ref={(canvasDraw) => canvasSet(canvasDraw)}
 				canvasWidth={600}
@@ -88,6 +92,7 @@ export default function Canvas(props) {
 				lazyRadius={lazyRadius}
 				backgroundColor={backgroundColor}
 				brushRadius={brushRadius}
+				hideGrid={true}
 			/>
 		</div>
 	);

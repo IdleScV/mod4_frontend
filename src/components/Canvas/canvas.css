@@ -1,0 +1,13 @@
+.canvas {
+	border: red solid 2px;
+	width: 600px;
+	margin: auto;
+	/* text-align: center; */
+}
+
+.canvas * {
+	margin: auto;
+}
+
+.cavasSliders {
+}
