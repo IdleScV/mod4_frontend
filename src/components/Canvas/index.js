@@ -9,12 +9,18 @@ import { CirclePicker } from 'react-color';
 import './canvas.css';
 
 export default function Canvas(props) {
-	const [ canvas, canvasSet ] = useState('');
 	const [ color, colorSet ] = useState('#f44336');
 	const [ brushRadius, brushRadiusSet ] = useState(5);
 	const [ backgroundColor, backgroundColorSet ] = useState('#000000');
 	const [ lazyRadius, lazyRadiusSet ] = useState(10);
-	const [ savedDrawing, savedDrawingSet ] = useState('');
+	// These two need to be callback functions
+	// const [ savedDrawing, savedDrawingSet ] = useState('');
+	// const [ canvas, canvasSet ] = useState('');
+
+	let savedDrawingSet = props.canvasStringSet;
+	let savedDrawing = props.canvasString;
+	let canvasSet = props.canvasSet;
+	let canvas = props.canvas;
 
 	return (
 		<div className="canvas">

@@ -1,17 +1,20 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
+import Input from '@material-ui/core/Input';
+import Button from '@material-ui/core/Button';
+import InputLabel from '@material-ui/core/InputLabel';
+
 const URL = 'http://localhost:3000/user_rooms';
 
 export default function JoinRoom({ userData, firebaseId, roomNumberSet }) {
 	const [ foundRoom, foundRoomSet ] = useState(false);
 	const [ errMessage, errMessageSet ] = useState(null);
 	const [ number, numberSet ] = useState(null);
+	const [ inputNum, inputNumSet ] = useState(null);
 
-	function joinRoomHandler(e) {
-		e.preventDefault();
-
-		numberSet(e.target.roomNum.value);
+	function joinRoomHandler() {
+		numberSet(inputNum);
 		let username = userData.username;
 
 		fetch(URL, {
@@ -23,7 +26,7 @@ export default function JoinRoom({ userData, firebaseId, roomNumberSet }) {
 			body: JSON.stringify({
 				firebase_id: firebaseId,
 				username: username,
-				roomNum: e.target.roomNum.value
+				roomNum: inputNum
 			})
 		})
 			.then((response) => response.json())
@@ -41,14 +44,37 @@ export default function JoinRoom({ userData, firebaseId, roomNumberSet }) {
 			foundRoomSet(true);
 		}
 	}
+	// console.log(inputNum);
 
 	return (
-		<div>
-			<form onSubmit={joinRoomHandler}>
-				<input type="number" name="roomNum" placeholder="Enter Room Number" />
-				<input type="submit" value="Join Room" />
-			</form>
-			{foundRoom ? <Link to={`/room/${number}`}>Join Room</Link> : <div>{errMessage}</div>}
+		<div className="joinorcreatebox">
+			<h4>Find a Room</h4>
+			<InputLabel>Room Number</InputLabel>
+			<Input
+				type="number"
+				name="roomNum"
+				placeholder="Enter Room Number"
+				onChange={(e) => {
+					inputNumSet(e.target.value);
+				}}
+			/>
+			<div>
+				{!foundRoom ? errMessage ? (
+					<Button variant="contained" color="secondary" onClick={joinRoomHandler}>
+						Try Again
+					</Button>
+				) : (
+					<Button variant="contained" color="primary" onClick={joinRoomHandler}>
+						Find Room
+					</Button>
+				) : (
+					<Button variant="outlined" color="primary">
+						<Link to={`/room/${number}`} style={{ textDecoration: 'none', color: 'black' }}>
+							Join Room
+						</Link>
+					</Button>
+				)}
+			</div>
 		</div>
 	);
 }

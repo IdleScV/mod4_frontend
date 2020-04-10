@@ -11,7 +11,6 @@ export const ACCOUNT = '/account';
 export const ADMIN = '/admin';
 export const PASSWORD_FORGET = '/pw-forget';
 
-export const CANVAS = '/canvas';
 export const CREATEORJOINROOM = '/createjoinroom';
 
 export const LOBBY = '/room/:id';
