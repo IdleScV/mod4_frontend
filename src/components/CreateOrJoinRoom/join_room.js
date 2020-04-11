@@ -36,7 +36,8 @@ export default function JoinRoom({ userData, firebaseId, roomNumberSet }) {
 	}
 
 	function goToLobby(roomData) {
-		console.log(roomData);
+		// console.log('Hit goToLobby_ roomData=>', roomData);
+		// console.log('join_room.js', roomData);
 		if (roomData.message) {
 			errMessageSet(roomData.message);
 		} else {

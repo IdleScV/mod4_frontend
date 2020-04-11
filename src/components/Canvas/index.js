@@ -1,26 +1,83 @@
-import React, { useState } from 'react';
-import CanvasDraw from 'react-canvas-draw';
+import React, { useState, useEffect } from 'react';
+// import CanvasDraw from 'react-canvas-draw';
 
 import Slider from '@material-ui/core/Slider';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import Button from '@material-ui/core/Button';
 import { CirclePicker } from 'react-color';
 
+import { withAuthorization } from '../Session';
+
 import './canvas.css';
 
-export default function Canvas(props) {
+function Canvas(props) {
 	const [ color, colorSet ] = useState('#f44336');
 	const [ brushRadius, brushRadiusSet ] = useState(5);
 	const [ backgroundColor, backgroundColorSet ] = useState('#000000');
 	const [ lazyRadius, lazyRadiusSet ] = useState(10);
-	// These two need to be callback functions
-	// const [ savedDrawing, savedDrawingSet ] = useState('');
-	// const [ canvas, canvasSet ] = useState('');
 
-	let savedDrawingSet = props.canvasStringSet;
-	let savedDrawing = props.canvasString;
+	let CanvasDraw = props.CanvasDraw;
 	let canvasSet = props.canvasSet;
 	let canvas = props.canvas;
+	let counter = props.counter;
+	let roomNumber = props.roomNumber;
+	let promptId = props.promptId;
+	let allPlayerDrawingsSet = props.allPlayerDrawingsSet;
+
+	let URL = 'http://localhost:3000/drawings';
+
+	useEffect(
+		() => {
+			checkTime();
+		},
+		[ counter ]
+	);
+
+	function checkTime() {
+		if (counter === 0) {
+			PostImage();
+		}
+	}
+
+	function PostImage() {
+		let canvasData = canvas.getSaveData();
+		let firebaseId = props.firebase.auth.W;
+		let payload = {
+			drawingData: canvasData,
+			firebaseId: firebaseId,
+			room_number: roomNumber,
+			promptId: promptId
+		};
+
+		fetch(URL, {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify(payload)
+		})
+			.then((response) => response.json())
+			.then((json) => processReturn(json));
+	}
+
+	function processReturn(data) {
+		// if (data.message) {
+		// 	console.log(data.message);
+		// } else {
+		// 	console.log(data);
+		// }
+		if (data.message) {
+			// console.log('No images', data);
+			refreshImageGetter();
+		} else {
+			// console.log('set images');
+			allPlayerDrawingsSet(data);
+		}
+	}
+
+	function refreshImageGetter() {
+		fetch(`http://localhost:3000/refresh_images/${roomNumber}`)
+			.then((response) => response.json())
+			.then((json) => processReturn(json));
+	}
 
 	return (
 		<div className="canvas">
@@ -39,27 +96,14 @@ export default function Canvas(props) {
 				>
 					Undo
 				</Button>
-				<Button
-					onClick={() => {
-						savedDrawingSet(canvas.getSaveData());
-					}}
-				>
-					Save Image
-				</Button>
-				<Button
-					onClick={() => {
-						console.log((savedDrawing.split(/%..|./).length - 1) / 1000.0, 'kb');
-					}}
-				>
-					Print Saved IMG String to Console
-				</Button>
-				<Button
+				{/* Using this to judge images later */}
+				{/* <Button
 					onClick={() => {
 						canvas.loadSaveData(savedDrawing, false);
 					}}
 				>
 					Load Saved Image
-				</Button>
+				</Button> */}
 			</ButtonGroup>
 			<CirclePicker
 				circleSize={25}
@@ -103,3 +147,7 @@ export default function Canvas(props) {
 		</div>
 	);
 }
+
+const condition = (authUser) => !!authUser;
+
+export default withAuthorization(condition)(Canvas);
