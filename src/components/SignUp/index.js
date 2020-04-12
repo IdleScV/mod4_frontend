@@ -12,7 +12,7 @@ import './index.css';
 
 const SignUpPage = () => (
 	<div>
-		<h1>SignUpPage</h1>
+		<h4>Sign Up Form</h4>
 		<SignUpForm />
 	</div>
 );
@@ -67,30 +67,6 @@ class SignUpFormBase extends Component {
 		const isInvalid = passwordOne !== passwordTwo || passwordOne === '' || email === '' || username === '';
 		return (
 			<div classname="signuppage">
-				{/* <form onSubmit={this.onSubmit}> */}
-				{/* <input name="username" value={username} onChange={this.onChange} type="text" placeholder="Full Name" />
-					<input name="email" value={email} onChange={this.onChange} type="text" placeholder="Email Address" />
-					<input
-						name="passwordOne"
-						value={passwordOne}
-						onChange={this.onChange}
-						type="password"
-						placeholder="Password"
-					/>
-					<input
-						name="passwordTwo"
-						value={passwordTwo}
-						onChange={this.onChange}
-						type="password"
-						placeholder="Confirm Password"
-					/> */}
-				{/* disabled if input are not valid */}
-				{/* <button disabled={isInvalid} type="submit">
-						Sign Up
-					</button> */}
-				{/* {error && <p>{error.message}</p>} */}
-				{/* </form> */}
-
 				<form onSubmit={this.onSubmit} className="signup">
 					<TextField
 						className="textinput"

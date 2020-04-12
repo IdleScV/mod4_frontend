@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 import CanvasDraw from 'react-canvas-draw';
 import Review from './review.js';

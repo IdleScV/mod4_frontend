@@ -28,16 +28,16 @@ function Canvas(props) {
 
 	useEffect(
 		() => {
+			function checkTime() {
+				if (counter === 0) {
+					PostImage();
+				}
+			}
+
 			checkTime();
 		},
 		[ counter ]
 	);
-
-	function checkTime() {
-		if (counter === 0) {
-			PostImage();
-		}
-	}
 
 	function PostImage() {
 		let canvasData = canvas.getSaveData();
