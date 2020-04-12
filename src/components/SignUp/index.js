@@ -5,6 +5,11 @@ import { compose } from 'recompose';
 import { withFirebase } from '../Firebase';
 import * as ROUTES from '../../constants/routes';
 
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+
+import './index.css';
+
 const SignUpPage = () => (
 	<div>
 		<h1>SignUpPage</h1>
@@ -61,29 +66,76 @@ class SignUpFormBase extends Component {
 		// Validation logic
 		const isInvalid = passwordOne !== passwordTwo || passwordOne === '' || email === '' || username === '';
 		return (
-			<form onSubmit={this.onSubmit}>
-				<input name="username" value={username} onChange={this.onChange} type="text" placeholder="Full Name" />
-				<input name="email" value={email} onChange={this.onChange} type="text" placeholder="Email Address" />
-				<input
-					name="passwordOne"
-					value={passwordOne}
-					onChange={this.onChange}
-					type="password"
-					placeholder="Password"
-				/>
-				<input
-					name="passwordTwo"
-					value={passwordTwo}
-					onChange={this.onChange}
-					type="password"
-					placeholder="Confirm Password"
-				/>
+			<div classname="signuppage">
+				{/* <form onSubmit={this.onSubmit}> */}
+				{/* <input name="username" value={username} onChange={this.onChange} type="text" placeholder="Full Name" />
+					<input name="email" value={email} onChange={this.onChange} type="text" placeholder="Email Address" />
+					<input
+						name="passwordOne"
+						value={passwordOne}
+						onChange={this.onChange}
+						type="password"
+						placeholder="Password"
+					/>
+					<input
+						name="passwordTwo"
+						value={passwordTwo}
+						onChange={this.onChange}
+						type="password"
+						placeholder="Confirm Password"
+					/> */}
 				{/* disabled if input are not valid */}
-				<button disabled={isInvalid} type="submit">
-					Sign Up
-				</button>
-				{error && <p>{error.message}</p>}
-			</form>
+				{/* <button disabled={isInvalid} type="submit">
+						Sign Up
+					</button> */}
+				{/* {error && <p>{error.message}</p>} */}
+				{/* </form> */}
+
+				<form onSubmit={this.onSubmit} className="signup">
+					<TextField
+						className="textinput"
+						id="standard-basic"
+						label="Username"
+						name="username"
+						value={username}
+						onChange={this.onChange}
+					/>
+					<br />
+					<TextField
+						className="textinput"
+						id="standard-basic"
+						label="Email"
+						name="email"
+						value={email}
+						onChange={this.onChange}
+					/>
+					<br />
+					<TextField
+						className="textinput"
+						id="standard-basic"
+						label="Password"
+						name="passwordOne"
+						value={passwordOne}
+						onChange={this.onChange}
+						type="password"
+					/>
+					<br />
+					<TextField
+						className="textinput"
+						id="standard-basic"
+						label="Confirm Password"
+						name="passwordTwo"
+						value={passwordTwo}
+						onChange={this.onChange}
+						type="password"
+					/>
+					<br />
+					<Button type="submit" disabled={isInvalid}>
+						Sign Up
+					</Button>
+					{error && <p>{error.message}</p>}
+				</form>
+			</div>
 		);
 	}
 }

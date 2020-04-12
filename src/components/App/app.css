@@ -1,1 +1,12 @@
+.navbar {
+	border: solid red 2px;
+	padding: 0px 20px;
+}
 
+a:link {
+	text-decoration: none;
+	color: black;
+}
+a:visited {
+	color: black;
+}

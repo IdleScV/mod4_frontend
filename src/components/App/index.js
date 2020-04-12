@@ -22,13 +22,13 @@ import './app.css';
 
 const App = () => {
 	const [ roomNumber, roomNumberSet ] = useState(null);
-	console.log('App.js room Number => ', roomNumber);
+
 	return (
 		<Router>
 			<div className="app">
-				<Navigation />
-				<hr />
-
+				<div className="navbar">
+					<Navigation />
+				</div>
 				<Route exact path={ROUTES.LANDING} component={LandingPage} />
 				<Route path={ROUTES.SIGN_UP} component={SignUpPage} />
 				<Route path={ROUTES.SIGN_IN} component={SignInPage} />

@@ -1,0 +1,19 @@
+.signuppage {
+	text-align: center;
+}
+.signup {
+	display: flex;
+	flex-direction: column;
+	margin: 5px auto;
+	padding: 15px 15px;
+	border-radius: 15px;
+	border: solid black 2px;
+}
+
+.signup:first-child {
+	width: 500px;
+}
+
+.textinput {
+	border: solid red 2px;
+}
