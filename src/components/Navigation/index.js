@@ -38,9 +38,10 @@ const NavigationAuth = () => {
 				<MenuItem>
 					<Link to={ROUTES.HOME}>Home</Link>
 				</MenuItem>
-				<MenuItem>
+				{/* Commented out Account page */}
+				{/* <MenuItem>
 					<Link to={ROUTES.ACCOUNT}>Account</Link>
-				</MenuItem>
+				</MenuItem> */}
 
 				<MenuItem>
 					<Link to={ROUTES.CREATEORJOINROOM}>Create or Join Room</Link>

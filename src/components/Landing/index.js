@@ -5,17 +5,30 @@ import Button from '@material-ui/core/Button';
 
 import './index.css';
 
+import { AuthUserContext } from '../Session';
+
 export default function Landing() {
 	return (
 		<div className="landing">
 			<h2>Welcome to *insert app name here*!</h2>
 			<div className="buttons">
-				<Button>
-					<Link to={ROUTES.SIGN_IN}>Sign In</Link>
-				</Button>
-				<Button>
-					<Link to={ROUTES.SIGN_UP}>Sign Up</Link>
-				</Button>
+				<AuthUserContext.Consumer>
+					{(authUser) =>
+						!authUser ? (
+							<div>
+								<Button>
+									<Link to={ROUTES.SIGN_IN}>Sign In</Link>
+								</Button>
+								<Button>
+									<Link to={ROUTES.SIGN_UP}>Sign Up</Link>
+								</Button>{' '}
+							</div>
+						) : (
+							<Button>
+								<Link to={ROUTES.CREATEORJOINROOM}>Create or Join Room</Link>
+							</Button>
+						)}
+				</AuthUserContext.Consumer>
 			</div>
 			<div className="about">
 				<h3>About . . . </h3>

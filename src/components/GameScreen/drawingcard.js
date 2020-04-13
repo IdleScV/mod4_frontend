@@ -17,12 +17,14 @@ function DrawingCard(props) {
 		},
 		[ currentImage ]
 	);
-
+	let Like = 0;
+	let Dislike = 0;
+	props.reviews.forEach((review) => (review.like ? (Like += 1) : (Dislike += 1)));
 	return (
 		<div>
 			{props.drawing.drawing ? (
 				<div className="reviewCard">
-					<div className="title">A Drawing of {props.prompt.prompt}</div>
+					<div className="title"> "{props.prompt.prompt}" </div>
 					<div className="author">By: {props.creator.username}</div>
 					<CanvasDraw
 						ref={(canvas) => currentImageSet(canvas)}
@@ -31,7 +33,9 @@ function DrawingCard(props) {
 						hideGrid={true}
 						disabled
 					/>
-					<div className="likes">{props.reviews.map((review) => (review.like ? '👍' : '👎')).flat()}</div>
+					<div className="likes">
+						👍: {Like} 👎: {Dislike}
+					</div>
 					<div className="comments">
 						<h3>User Reviews:</h3>
 						<ul>{props.reviews.map((review) => <li>{review.comment}</li>)}</ul>

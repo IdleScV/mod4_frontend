@@ -32,7 +32,9 @@ function ReviewPhase(props) {
 		}
 	}
 
-	return <div>{drawingsFetched ? <DrawingCollection drawingData={drawingData} /> : 'Loading'}</div>;
+	return (
+		<div>{drawingsFetched ? <DrawingCollection drawingData={drawingData} isHost={props.isHost} /> : 'Loading'}</div>
+	);
 }
 
 export default ReviewPhase;

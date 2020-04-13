@@ -11,3 +11,7 @@ a:link {
 a:visited {
 	color: black;
 }
+
+.error {
+	color: red;
+}

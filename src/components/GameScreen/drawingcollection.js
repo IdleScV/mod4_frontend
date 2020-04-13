@@ -1,20 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import DrawingCard from './drawingcard';
 import './drawingcollection';
 
-function DrawingCollection({ drawingData }) {
-	const [ isHost, isHostSet ] = useState(null);
-
+function DrawingCollection({ drawingData, isHost }) {
 	return (
 		<div>
-			{/* <div className="roomcontrols">
-                    {isHost ? <Button onClick={startGame}>Return to Lobby</Button> : null}
-
-                    <Link to={ROUTES.CREATEORJOINROOM}>
-                        <Button onClick={leavePagePost}>Leave Session</Button>
-                    </Link>
-            </div> */}
-
 			<div className="drawingCollection">
 				{drawingData.drawings.map((drawing, i) => (
 					<DrawingCard

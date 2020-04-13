@@ -4,12 +4,17 @@ import ReviewPhase from './reviewphase';
 import JudgingPhase from './judgingphase.js';
 import CanvasDraw from 'react-canvas-draw';
 
-function GameScreen({ gameProgress, gameProgressSet, roomNumber }) {
+const LEAVEURL = 'http://localhost:3000/leavecurrentroom/';
+const HOSTNEW = 'http://localhost:3000/hoststartnewround/';
+const GUESTNEW = 'http://localhost:3000/gueststartnewround/';
+
+function GameScreen({ gameProgress, gameProgressSet, roomNumber, isHost, firebase, roomNumberSet }) {
 	const [ canvas, canvasSet ] = useState('');
 	const [ counter, setCounter ] = useState(10);
 	const [ promptData, promptDataSet ] = useState({});
 	const [ allPlayerDrawings, allPlayerDrawingsSet ] = useState(null);
 	const [ judgingOver, judgingOverSet ] = useState(false);
+	const [ err, errSet ] = useState(false);
 
 	useEffect(
 		() => {
@@ -29,17 +34,78 @@ function GameScreen({ gameProgress, gameProgressSet, roomNumber }) {
 			.then((json) => promptDataSet(json));
 	}
 
+	function leaveLobby() {
+		let firebase_id = firebase.auth.W;
+		let num = roomNumber;
+		roomNumberSet(null);
+		fetch(LEAVEURL + num, {
+			method: 'DELETE',
+			headers: {
+				Accept: 'application/json',
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({ firebase_id: firebase_id })
+		});
+	}
+
+	function hostAnotherGame() {
+		let firebase_id = firebase.auth.W;
+		let num = roomNumber;
+
+		fetch(HOSTNEW + num, {
+			method: 'POST',
+			headers: {
+				Accept: 'application/json',
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({ firebase_id: firebase_id })
+		})
+			.then((resp) => resp.json())
+			.then((data) => gameProgressSet('open'));
+	}
+
+	function joinOriginalLobby() {
+		let firebase_id = firebase.auth.W;
+		let num = roomNumber;
+
+		fetch(HOSTNEW + num, {
+			method: 'POST',
+			headers: {
+				Accept: 'application/json',
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({ firebase_id: firebase_id })
+		})
+			.then((resp) => resp.json())
+			.then((data) => processJoin(data));
+	}
+
+	function processJoin(data) {
+		if (data.message === 'success') {
+			gameProgressSet('open');
+		} else {
+			errSet(data.message);
+		}
+	}
 	return (
 		<div>
 			{judgingOver ? (
-				<ReviewPhase numPeople={allPlayerDrawings.length} roomNumber={roomNumber} />
+				<div>
+					<ReviewPhase numPeople={allPlayerDrawings.length} roomNumber={roomNumber} isHost={isHost} />
+					{isHost ? (
+						<button onClick={hostAnotherGame}>Start Another Round?</button>
+					) : (
+						<button onClick={joinOriginalLobby}>Play Again?{err ? err : null}</button>
+					)}
+					<button onClick={leaveLobby}>Leave Game</button>
+				</div>
 			) : allPlayerDrawings ? (
 				<JudgingPhase allPlayerDrawings={allPlayerDrawings} judgingOverSet={judgingOverSet} />
 			) : (
 				<div>
 					<h3> Time Left: {counter}</h3>
 					<br />
-					<h3>{promptData.prompt}</h3>
+					<h3>Draw a. . . . {promptData.prompt}</h3>
 					<Canvas
 						CanvasDraw={CanvasDraw}
 						canvasSet={canvasSet}

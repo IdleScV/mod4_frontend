@@ -49,6 +49,7 @@ export default function JoinRoom({ userData, firebaseId, roomNumberSet }) {
 
 	return (
 		<div className="joinorcreatebox">
+			{errMessage ? <div className="error">{errMessage}</div> : null}
 			<h4>Find a Room</h4>
 			<InputLabel>Room Number</InputLabel>
 			<Input
@@ -61,9 +62,11 @@ export default function JoinRoom({ userData, firebaseId, roomNumberSet }) {
 			/>
 			<div>
 				{!foundRoom ? errMessage ? (
-					<Button variant="contained" color="secondary" onClick={joinRoomHandler}>
-						Try Again
-					</Button>
+					<div>
+						<Button variant="contained" color="secondary" onClick={joinRoomHandler}>
+							Try Again
+						</Button>
+					</div>
 				) : (
 					<Button variant="contained" color="primary" onClick={joinRoomHandler}>
 						Find Room
