@@ -16,7 +16,11 @@ function JudgingPhase(props) {
 	}, []);
 
 	function nextImage() {
-		currentImageNumSet(currentImageNum + 1);
+		if (currentImageNum + 1 == totalImageNum) {
+			props.judgingOverSet(true);
+		} else {
+			currentImageNumSet(currentImageNum + 1);
+		}
 	}
 
 	return (
@@ -24,7 +28,7 @@ function JudgingPhase(props) {
 			{props.allPlayerDrawings ? (
 				<div>
 					<div>
-						Judging Picture #{currentImageNum} out of #{totalImageNum}
+						Judging Picture #{currentImageNum + 1} out of #{totalImageNum}
 					</div>
 					<JudgePicture drawingData={props.allPlayerDrawings[currentImageNum]} nextImage={nextImage} />
 				</div>

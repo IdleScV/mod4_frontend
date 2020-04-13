@@ -1,0 +1,4 @@
+.drawingCollection {
+	display: flex;
+	flex-wrap: wrap;
+}

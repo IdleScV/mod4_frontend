@@ -1,6 +1,7 @@
 .navbar {
-	border: solid red 2px;
+	/* border: solid red 2px; */
 	padding: 0px 20px;
+	background-color: lightblue;
 }
 
 a:link {
