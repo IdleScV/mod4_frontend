@@ -6,8 +6,8 @@ import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 import * as ROUTES from '../../constants/routes';
-const URL = 'http://localhost:3000/rooms/';
-const LEAVEURL = 'http://localhost:3000/user_rooms/';
+const URL = 'https://draw-off-app-api.herokuapp.com/rooms/';
+const LEAVEURL = 'https://draw-off-app-api.herokuapp.com/user_rooms/';
 const useStyles = makeStyles((theme) => ({
 	root: {
 		flexGrow: 1
@@ -21,10 +21,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function WaitingRoom({ roomNumber, gameProgressSet, firebase, roomNumberSet, isHost, isHostSet }) {
-	const [ users, usersSet ] = useState([]);
-	const [ roomStatus, roomStatusSet ] = useState('Loading...');
-	const [ host, hostSet ] = useState(null);
-	const [ maxNum, maxNumSet ] = useState(null);
+	const [users, usersSet] = useState([]);
+	const [roomStatus, roomStatusSet] = useState('Loading...');
+	const [host, hostSet] = useState(null);
+	const [maxNum, maxNumSet] = useState(null);
 
 	const classes = useStyles(); //used for css
 	useEffect(() => {

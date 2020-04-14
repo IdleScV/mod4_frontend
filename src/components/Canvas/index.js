@@ -25,6 +25,7 @@ function Canvas(props) {
 	let allPlayerDrawingsSet = props.allPlayerDrawingsSet;
 
 	let URL = 'https://draw-off-app-api.herokuapp.com/drawings';
+	let REFRESHURL = 'https://draw-off-app-api.herokuapp.com/refresh_images/'
 
 	useEffect(
 		() => {
@@ -59,22 +60,18 @@ function Canvas(props) {
 	}
 
 	function processReturn(data) {
-		// if (data.message) {
-		// 	console.log(data.message);
-		// } else {
-		// 	console.log(data);
-		// }
+
 		if (data.message) {
-			// console.log('No images', data);
-			refreshImageGetter();
+
+			setTimeout(function () { refreshImageGetter() }, 500);
 		} else {
-			// console.log('set images');
+
 			allPlayerDrawingsSet(data);
 		}
 	}
 
 	function refreshImageGetter() {
-		fetch(`https://draw-off-app-api.herokuapp.com/${roomNumber}`)
+		fetch(REFRESHURL + roomNumber)
 			.then((response) => response.json())
 			.then((json) => processReturn(json));
 	}

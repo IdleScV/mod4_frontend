@@ -6,11 +6,11 @@ import GameScreen from '../GameScreen';
 
 import './lobby.css';
 
-const URL = 'http://localhost:3000/rooms/';
+const URL = 'https://draw-off-app-api.herokuapp.com/rooms/';
 
 function Lobby({ roomNumber, firebase, roomNumberSet }) {
-	const [ gameProgress, gameProgressSet ] = useState(null);
-	const [ isHost, isHostSet ] = useState(null);
+	const [gameProgress, gameProgressSet] = useState(null);
+	const [isHost, isHostSet] = useState(null);
 
 	function fetchUsers() {
 		console.log('fetching user');
@@ -55,8 +55,8 @@ function Lobby({ roomNumber, firebase, roomNumberSet }) {
 					roomNumberSet={roomNumberSet}
 				/>
 			) : (
-				'Loading...'
-			)}
+						'Loading...'
+					)}
 
 			{/* {gameProgress ? gameProgress === 'open' ? (
 				// if Room is open, sends user to waiting room

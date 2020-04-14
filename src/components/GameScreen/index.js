@@ -7,7 +7,7 @@ import CanvasDraw from 'react-canvas-draw';
 const LEAVEURL = 'https://draw-off-app-api.herokuapp.com/leavecurrentroom/';
 const HOSTNEW = 'https://draw-off-app-api.herokuapp.com/hoststartnewround/';
 const GUESTNEW = 'https://draw-off-app-api.herokuapp.com/gueststartnewround/';
-const RANDOMPROMPT = 'https://draw-off-app-api.herokuapp.com/random_prompt'
+const RANDOMPROMPT = 'https://draw-off-app-api.herokuapp.com/random_prompt/';
 
 function GameScreen({ gameProgress, gameProgressSet, roomNumber, isHost, firebase, roomNumberSet }) {
 	const [canvas, canvasSet] = useState('');
