@@ -6,12 +6,12 @@ import Select from '@material-ui/core/Select';
 import Button from '@material-ui/core/Button';
 import InputLabel from '@material-ui/core/InputLabel';
 
-const URL = 'http://localhost:3000/rooms/';
+const URL = 'https://draw-off-app-api.herokuapp.com/rooms/';
 
 export default function CreateRoom({ userData, firebaseId, roomNumberSet }) {
-	const [ roomExist, roomExistSet ] = useState(false);
-	const [ roomNum, roomNumSet ] = useState(null);
-	const [ maxPeople, maxPeopleSet ] = useState(2);
+	const [roomExist, roomExistSet] = useState(false);
+	const [roomNum, roomNumSet] = useState(null);
+	const [maxPeople, maxPeopleSet] = useState(2);
 
 	function handleSubmit() {
 		let numPeople = maxPeople;
@@ -69,12 +69,12 @@ export default function CreateRoom({ userData, firebaseId, roomNumberSet }) {
 						Create Room
 					</Button>
 				) : (
-					<Button variant="outlined" color="primary">
-						<Link to={`/room/${roomNum}`} style={{ textDecoration: 'none', color: 'black' }}>
-							Enter Room
+						<Button variant="outlined" color="primary">
+							<Link to={`/room/${roomNum}`} style={{ textDecoration: 'none', color: 'black' }}>
+								Enter Room
 						</Link>
-					</Button>
-				)}
+						</Button>
+					)}
 			</div>
 		</div>
 	);

@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import DrawingCollection from './drawingcollection';
 
-const URL = 'http://localhost:3000/round_reviews';
+const URL = 'https://draw-off-app-api.herokuapp.com/round_reviews';
 
 function ReviewPhase(props) {
-	const [ drawingsFetched, drawingsFetchedSet ] = useState(false);
-	const [ drawingData, drawingDataSet ] = useState(null);
+	const [drawingsFetched, drawingsFetchedSet] = useState(false);
+	const [drawingData, drawingDataSet] = useState(null);
 
 	useEffect(() => {
 		fetchReviews();

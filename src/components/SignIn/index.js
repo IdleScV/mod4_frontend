@@ -54,7 +54,7 @@ class SignInFormBase extends React.Component {
 		const { email, password, error } = this.state;
 		const isInvalid = password === '' || email === '';
 		return (
-			<div classname="signinpage">
+			<div className="signinpage">
 				<form onSubmit={this.onSubmit} className="signin">
 					<TextField
 						className="textinput"

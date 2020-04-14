@@ -4,24 +4,25 @@ import ReviewPhase from './reviewphase';
 import JudgingPhase from './judgingphase.js';
 import CanvasDraw from 'react-canvas-draw';
 
-const LEAVEURL = 'http://localhost:3000/leavecurrentroom/';
-const HOSTNEW = 'http://localhost:3000/hoststartnewround/';
-const GUESTNEW = 'http://localhost:3000/gueststartnewround/';
+const LEAVEURL = 'https://draw-off-app-api.herokuapp.com/leavecurrentroom/';
+const HOSTNEW = 'https://draw-off-app-api.herokuapp.com/hoststartnewround/';
+const GUESTNEW = 'https://draw-off-app-api.herokuapp.com/gueststartnewround/';
+const RANDOMPROMPT = 'https://draw-off-app-api.herokuapp.com/random_prompt'
 
 function GameScreen({ gameProgress, gameProgressSet, roomNumber, isHost, firebase, roomNumberSet }) {
-	const [ canvas, canvasSet ] = useState('');
-	const [ counter, setCounter ] = useState(10);
-	const [ promptData, promptDataSet ] = useState({});
-	const [ allPlayerDrawings, allPlayerDrawingsSet ] = useState(null);
-	const [ judgingOver, judgingOverSet ] = useState(false);
-	const [ err, errSet ] = useState(false);
+	const [canvas, canvasSet] = useState('');
+	const [counter, setCounter] = useState(10);
+	const [promptData, promptDataSet] = useState({});
+	const [allPlayerDrawings, allPlayerDrawingsSet] = useState(null);
+	const [judgingOver, judgingOverSet] = useState(false);
+	const [err, errSet] = useState(false);
 
 	useEffect(
 		() => {
 			const timer = counter > 0 && setInterval(() => setCounter(counter - 1), 1000);
 			return () => clearInterval(timer);
 		},
-		[ counter ]
+		[counter]
 	);
 
 	useEffect(() => {
@@ -29,7 +30,7 @@ function GameScreen({ gameProgress, gameProgressSet, roomNumber, isHost, firebas
 	}, []);
 
 	function fetchPrompt() {
-		fetch('http://localhost:3000/random_prompt')
+		fetch(RANDOMPROMPT)
 			.then((response) => response.json())
 			.then((json) => promptDataSet(json));
 	}
@@ -95,28 +96,28 @@ function GameScreen({ gameProgress, gameProgressSet, roomNumber, isHost, firebas
 					{isHost ? (
 						<button onClick={hostAnotherGame}>Start Another Round?</button>
 					) : (
-						<button onClick={joinOriginalLobby}>Play Again?{err ? err : null}</button>
-					)}
+							<button onClick={joinOriginalLobby}>Play Again?{err ? err : null}</button>
+						)}
 					<button onClick={leaveLobby}>Leave Game</button>
 				</div>
 			) : allPlayerDrawings ? (
 				<JudgingPhase allPlayerDrawings={allPlayerDrawings} judgingOverSet={judgingOverSet} />
 			) : (
-				<div>
-					<h3> Time Left: {counter}</h3>
-					<br />
-					<h3>Draw a. . . . {promptData.prompt}</h3>
-					<Canvas
-						CanvasDraw={CanvasDraw}
-						canvasSet={canvasSet}
-						canvas={canvas}
-						counter={counter}
-						roomNumber={roomNumber}
-						promptId={promptData.id}
-						allPlayerDrawingsSet={allPlayerDrawingsSet}
-					/>
-				</div>
-			)}
+						<div>
+							<h3> Time Left: {counter}</h3>
+							<br />
+							<h3>Draw a. . . . {promptData.prompt}</h3>
+							<Canvas
+								CanvasDraw={CanvasDraw}
+								canvasSet={canvasSet}
+								canvas={canvas}
+								counter={counter}
+								roomNumber={roomNumber}
+								promptId={promptData.id}
+								allPlayerDrawingsSet={allPlayerDrawingsSet}
+							/>
+						</div>
+					)}
 		</div>
 	);
 }

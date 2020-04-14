@@ -3,8 +3,11 @@ import React, { useState } from 'react';
 import CanvasDraw from 'react-canvas-draw';
 import Review from './review.js';
 import { withAuthorization } from '../Session';
+
+const REVIEWS = "https://draw-off-app-api.herokuapp.com/reviews"
+
 function JudgePicture(props) {
-	const [ currentImage, currentImageSet ] = useState('');
+	const [currentImage, currentImageSet] = useState('');
 
 	function loadPicture() {
 		if (props.drawingData && currentImage) {
@@ -25,7 +28,7 @@ function JudgePicture(props) {
 			like: like
 		};
 
-		fetch('http://localhost:3000/reviews', {
+		fetch(REVIEWS, {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify(payload)
@@ -52,8 +55,8 @@ function JudgePicture(props) {
 					<Review postReview={postReview} currentImage={currentImage} />
 				</div>
 			) : (
-				'Loading'
-			)}
+					'Loading'
+				)}
 		</div>
 	);
 }

@@ -11,10 +11,10 @@ import { withAuthorization } from '../Session';
 import './canvas.css';
 
 function Canvas(props) {
-	const [ color, colorSet ] = useState('#f44336');
-	const [ brushRadius, brushRadiusSet ] = useState(5);
-	const [ backgroundColor, backgroundColorSet ] = useState('#000000');
-	const [ lazyRadius, lazyRadiusSet ] = useState(10);
+	const [color, colorSet] = useState('#f44336');
+	const [brushRadius, brushRadiusSet] = useState(5);
+	const [backgroundColor, backgroundColorSet] = useState('#000000');
+	const [lazyRadius, lazyRadiusSet] = useState(10);
 
 	let CanvasDraw = props.CanvasDraw;
 	let canvasSet = props.canvasSet;
@@ -24,7 +24,7 @@ function Canvas(props) {
 	let promptId = props.promptId;
 	let allPlayerDrawingsSet = props.allPlayerDrawingsSet;
 
-	let URL = 'http://localhost:3000/drawings';
+	let URL = 'https://draw-off-app-api.herokuapp.com/drawings';
 
 	useEffect(
 		() => {
@@ -36,7 +36,7 @@ function Canvas(props) {
 
 			checkTime();
 		},
-		[ counter ]
+		[counter]
 	);
 
 	function PostImage() {
@@ -74,7 +74,7 @@ function Canvas(props) {
 	}
 
 	function refreshImageGetter() {
-		fetch(`http://localhost:3000/refresh_images/${roomNumber}`)
+		fetch(`https://draw-off-app-api.herokuapp.com/${roomNumber}`)
 			.then((response) => response.json())
 			.then((json) => processReturn(json));
 	}
