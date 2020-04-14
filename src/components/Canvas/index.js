@@ -93,14 +93,6 @@ function Canvas(props) {
 				>
 					Undo
 				</Button>
-				{/* Using this to judge images later */}
-				{/* <Button
-					onClick={() => {
-						canvas.loadSaveData(savedDrawing, false);
-					}}
-				>
-					Load Saved Image
-				</Button> */}
 			</ButtonGroup>
 			<CirclePicker
 				circleSize={25}
