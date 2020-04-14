@@ -1,4 +1,47 @@
-.reviewCard {
-	width: 500px;
-	height: 800px;
+.drawingcard {
+	width: 400px;
+	/* height: 600px; */
+	border: 2px solid black;
+	border-radius: 10px;
+	padding: 5px;
+	margin: 5px 10px;
+}
+.reviewcanvas {
+	border-radius: 10px;
+}
+.drawingcard .description {
+	display: flex;
+	flex-direction: column;
+	font-size: smaller;
+}
+
+.drawingcard .reviews {
+	font-size: smaller;
+}
+
+.allreviews {
+	/* border: 0.5px solid red; */
+	padding: 0px;
+	/* line-height: 12px; */
+}
+
+.singlereview {
+	/* border: 0.5px blue solid; */
+
+	height: 40px;
+}
+
+.reviewheader {
+	/* line-height: 0px; */
+	display: flex;
+	justify-content: space-around;
+	/* border: 0.5px solid red; */
+}
+
+.reviewheader h3 {
+	line-height: 0px;
+}
+
+.likes {
+	font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }

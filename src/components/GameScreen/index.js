@@ -3,26 +3,28 @@ import Canvas from '../Canvas';
 import ReviewPhase from './reviewphase';
 import JudgingPhase from './judgingphase.js';
 import CanvasDraw from 'react-canvas-draw';
+import Button from '@material-ui/core/Button';
 
+import './index.css';
 const LEAVEURL = 'https://draw-off-app-api.herokuapp.com/leavecurrentroom/';
 const HOSTNEW = 'https://draw-off-app-api.herokuapp.com/hoststartnewround/';
 const GUESTNEW = 'https://draw-off-app-api.herokuapp.com/gueststartnewround/';
 const RANDOMPROMPT = 'https://draw-off-app-api.herokuapp.com/random_prompt/';
 
 function GameScreen({ gameProgress, gameProgressSet, roomNumber, isHost, firebase, roomNumberSet }) {
-	const [canvas, canvasSet] = useState('');
-	const [counter, setCounter] = useState(10);
-	const [promptData, promptDataSet] = useState({});
-	const [allPlayerDrawings, allPlayerDrawingsSet] = useState(null);
-	const [judgingOver, judgingOverSet] = useState(false);
-	const [err, errSet] = useState(false);
+	const [ canvas, canvasSet ] = useState('');
+	const [ counter, setCounter ] = useState(90);
+	const [ promptData, promptDataSet ] = useState({});
+	const [ allPlayerDrawings, allPlayerDrawingsSet ] = useState(null);
+	const [ judgingOver, judgingOverSet ] = useState(false);
+	const [ err, errSet ] = useState(false);
 
 	useEffect(
 		() => {
 			const timer = counter > 0 && setInterval(() => setCounter(counter - 1), 1000);
 			return () => clearInterval(timer);
 		},
-		[counter]
+		[ counter ]
 	);
 
 	useEffect(() => {
@@ -30,9 +32,7 @@ function GameScreen({ gameProgress, gameProgressSet, roomNumber, isHost, firebas
 	}, []);
 
 	function fetchPrompt() {
-		fetch(RANDOMPROMPT)
-			.then((response) => response.json())
-			.then((json) => promptDataSet(json));
+		fetch(RANDOMPROMPT).then((response) => response.json()).then((json) => promptDataSet(json));
 	}
 
 	function leaveLobby() {
@@ -88,36 +88,48 @@ function GameScreen({ gameProgress, gameProgressSet, roomNumber, isHost, firebas
 			errSet(data.message);
 		}
 	}
+
 	return (
 		<div>
 			{judgingOver ? (
-				<div>
-					<ReviewPhase numPeople={allPlayerDrawings.length} roomNumber={roomNumber} isHost={isHost} />
+				<div className="judginover">
 					{isHost ? (
-						<button onClick={hostAnotherGame}>Start Another Round?</button>
+						<Button className="EndOfGameBtn" variant="contained" color="primary" onClick={hostAnotherGame}>
+							Start Another Round?
+						</Button>
 					) : (
-							<button onClick={joinOriginalLobby}>Play Again?{err ? err : null}</button>
-						)}
-					<button onClick={leaveLobby}>Leave Game</button>
+						<Button className="EndOfGameBtn" variant="contained" color="primary" onClick={joinOriginalLobby}>
+							Play Again?{err ? err : null}
+						</Button>
+					)}
+					<Button className="EndOfGameBtn" variant="contained" color="primary" onClick={leaveLobby}>
+						Leave Game
+					</Button>
+					<ReviewPhase numPeople={allPlayerDrawings.length} roomNumber={roomNumber} isHost={isHost} />
 				</div>
 			) : allPlayerDrawings ? (
 				<JudgingPhase allPlayerDrawings={allPlayerDrawings} judgingOverSet={judgingOverSet} />
 			) : (
-						<div>
-							<h3> Time Left: {counter}</h3>
-							<br />
-							<h3>Draw a. . . . {promptData.prompt}</h3>
-							<Canvas
-								CanvasDraw={CanvasDraw}
-								canvasSet={canvasSet}
-								canvas={canvas}
-								counter={counter}
-								roomNumber={roomNumber}
-								promptId={promptData.id}
-								allPlayerDrawingsSet={allPlayerDrawingsSet}
-							/>
-						</div>
-					)}
+				<div className="drawingphase">
+					<div className="header">
+						<h3 className="timer">
+							{' '}
+							Time Left: {Math.floor(counter / 60)} Mins {counter % 60} Seconds
+						</h3>
+
+						<h3 className="prompt">Draw a. . . . {promptData.prompt}</h3>
+					</div>
+					<Canvas
+						CanvasDraw={CanvasDraw}
+						canvasSet={canvasSet}
+						canvas={canvas}
+						counter={counter}
+						roomNumber={roomNumber}
+						promptId={promptData.id}
+						allPlayerDrawingsSet={allPlayerDrawingsSet}
+					/>
+				</div>
+			)}
 		</div>
 	);
 }

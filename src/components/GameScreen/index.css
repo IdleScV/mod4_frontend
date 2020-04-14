@@ -1,0 +1,30 @@
+.header {
+	text-align: center;
+	display: flex;
+	justify-content: space-evenly;
+}
+
+.timer {
+	margin-right: 50px;
+}
+
+.EndOfGameBtn {
+	transition-duration: 0.5s;
+	font-size: 16px;
+	padding: '6px 12px';
+	border: '5px solid';
+}
+
+.EndOfGameBtn:hover {
+	box-shadow: inset 0 -2px 0 -2px rgba(0, 0, 0, 0.6), 0 0 8px 0 rgba(0, 0, 0, 0.5);
+	color: white;
+}
+
+.judginover button {
+	margin: 10px 10px 10px 10px;
+	/* border: red 1px solid; */
+}
+
+.judginover {
+	text-align: center;
+}

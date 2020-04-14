@@ -15,6 +15,7 @@ function DrawingCard(props) {
 
 			loadPicture();
 		},
+		// eslint-disable-next-line
 		[ currentImage ]
 	);
 	let Like = 0;
@@ -23,22 +24,37 @@ function DrawingCard(props) {
 	return (
 		<div>
 			{props.drawing.drawing ? (
-				<div className="reviewCard">
-					<div className="title"> "{props.prompt.prompt}" </div>
-					<div className="author">By: {props.creator.username}</div>
+				<div className="drawingcard">
 					<CanvasDraw
 						ref={(canvas) => currentImageSet(canvas)}
-						canvasWidth={600}
-						canvasHeight={400}
+						canvasWidth={400}
+						canvasHeight={300}
 						hideGrid={true}
 						disabled
+						backgroundColor="black"
+						className="reviewcanvas"
 					/>
-					<div className="likes">
-						👍: {Like} 👎: {Dislike}
+					<div className="description">
+						<div className="prompttitle"> "{props.prompt.prompt}" </div>
+						<div className="author">By: {props.creator.username}</div>
 					</div>
-					<div className="comments">
-						<h3>User Reviews:</h3>
-						<ul>{props.reviews.map((review) => <li>{review.comment}</li>)}</ul>
+					<div className="likes">
+						<span role="img" aria-label="thumbsup">
+							👍
+						</span>: {Like}
+						<span role="img" aria-label="thumbsdown">
+							👎
+						</span>: {Dislike}
+					</div>
+					<div className="reviews">
+						<div className="comments">
+							<div className="allreviews">
+								{props.reviews.map(
+									(review) =>
+										review.comment.length > 0 ? <p className="singlereview">"{review.comment}"</p> : null
+								)}
+							</div>
+						</div>
 					</div>
 				</div>
 			) : (

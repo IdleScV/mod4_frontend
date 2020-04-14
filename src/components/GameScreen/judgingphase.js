@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 
 import JudgePicture from './judgepicture';
 
+import './judgingphase.css';
+
 function JudgingPhase(props) {
 	const [ totalImageNum, totalImageNumSet ] = useState(null);
 	const [ currentImageNum, currentImageNumSet ] = useState(0);
@@ -13,10 +15,11 @@ function JudgingPhase(props) {
 		} else {
 			// console.log('No Drawings Yet');
 		}
+		// eslint-disable-next-line
 	}, []);
 
 	function nextImage() {
-		if (currentImageNum + 1 == totalImageNum) {
+		if (currentImageNum + 1 === totalImageNum) {
 			props.judgingOverSet(true);
 		} else {
 			currentImageNumSet(currentImageNum + 1);
@@ -26,9 +29,9 @@ function JudgingPhase(props) {
 	return (
 		<div>
 			{props.allPlayerDrawings ? (
-				<div>
-					<div>
-						Judging Picture #{currentImageNum + 1} out of #{totalImageNum}
+				<div className="judginpanel">
+					<div className="title">
+						Art Piece #{currentImageNum + 1} out of #{totalImageNum}
 					</div>
 					<JudgePicture drawingData={props.allPlayerDrawings[currentImageNum]} nextImage={nextImage} />
 				</div>

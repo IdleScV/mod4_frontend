@@ -3,13 +3,16 @@
 	padding: 0px 20px;
 	background-color: lightblue;
 }
-
+.app {
+	font-family: 'Amatic SC', cursive;
+	font-size: xx-large;
+}
 a:link {
 	text-decoration: none;
-	color: black;
+	/* color: black; */
 }
 a:visited {
-	color: black;
+	/* color: black; */
 }
 
 .error {

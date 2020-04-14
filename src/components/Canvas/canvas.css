@@ -1,13 +1,29 @@
 .canvas {
-	border: red solid 2px;
-	width: 600px;
+	display: flex;
+	justify-content: center;
+	/* width: 600px; */
 	margin: auto;
 	/* text-align: center; */
 }
 
-.canvas * {
-	margin: auto;
+.controls {
+	padding: 10px;
+	border-radius: 10px;
+	margin-left: auto;
+	margin-bottom: auto;
+	margin-top: auto;
+	margin-right: 50px;
+	-webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+	-moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
 }
 
-.cavasSliders {
+.controls .buttons {
+	display: flex;
+	justify-content: center;
+}
+
+.drawingcanvas {
+	border-radius: 5px;
+	margin-right: auto;
 }

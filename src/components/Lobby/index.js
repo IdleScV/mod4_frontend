@@ -9,8 +9,8 @@ import './lobby.css';
 const URL = 'https://draw-off-app-api.herokuapp.com/rooms/';
 
 function Lobby({ roomNumber, firebase, roomNumberSet }) {
-	const [gameProgress, gameProgressSet] = useState(null);
-	const [isHost, isHostSet] = useState(null);
+	const [ gameProgress, gameProgressSet ] = useState(null);
+	const [ isHost, isHostSet ] = useState(null);
 
 	function fetchUsers() {
 		console.log('fetching user');
@@ -55,33 +55,8 @@ function Lobby({ roomNumber, firebase, roomNumberSet }) {
 					roomNumberSet={roomNumberSet}
 				/>
 			) : (
-						'Loading...'
-					)}
-
-			{/* {gameProgress ? gameProgress === 'open' ? (
-				// if Room is open, sends user to waiting room
-				<WaitingRoom
-					roomNumber={roomNumber}
-					firebase={firebase}
-					roomNumberSet={roomNumberSet}
-					gameProgressSet={gameProgressSet}
-					isHost={isHost}
-					isHostSet={isHostSet}
-				/>
-			) : (
-				// If Gameprogress does not equal 'open' but is true
-				<GameScreen
-					isHost={isHost}
-					firebase={firebase}
-					gameProgress={gameProgress}
-					gameProgressSet={gameProgressSet}
-					roomNumber={roomNumber}
-					roomNumberSet={roomNumberSet}
-				/>
-			) : (
-				// If Gameprogress is null
-				<div>Loading...</div>
-			)} */}
+				'Loading...'
+			)}
 		</div>
 	);
 }

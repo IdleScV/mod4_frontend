@@ -1,0 +1,42 @@
+.judginpanel {
+	text-align: center;
+}
+.title {
+	margin-top: 20px;
+}
+
+.judginpicture {
+	display: flex;
+
+	margin: 20px auto 10px auto;
+	/* border: blue solid 2px; */
+}
+
+.judgincanvas {
+	margin-left: auto;
+	/* border: red solid 2px; */
+	border-radius: 5px;
+}
+
+.reviewpost {
+	/* border: red solid 2px; */
+	margin-right: auto;
+	text-align: center;
+	padding: 10px 10px 10px 50px;
+}
+
+.reviewpost {
+	/* border: red solid 2px; */
+}
+
+.reviewpost .buttons {
+	/* border: red solid 2px; */
+	font-size: 20px;
+	display: flex;
+	justify-content: space-evenly;
+}
+
+.reviewpost .input {
+	/* border: red solid 2px; */
+	margin-bottom: 15px;
+}

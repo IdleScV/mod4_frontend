@@ -21,7 +21,7 @@ import { withAuthentication } from '../Session';
 import './app.css';
 
 const App = () => {
-	const [roomNumber, roomNumberSet] = useState(null);
+	const [ roomNumber, roomNumberSet ] = useState(null);
 
 	return (
 		<Router>
@@ -51,13 +51,13 @@ const App = () => {
 						}}
 					/>
 				) : (
-						<Route
-							path={ROUTES.LOBBY}
-							render={() => {
-								return <CreateOrJoinRoom roomNumberSet={roomNumberSet} />;
-							}}
-						/>
-					)}
+					<Route
+						path={ROUTES.LOBBY}
+						render={() => {
+							return <CreateOrJoinRoom roomNumberSet={roomNumberSet} />;
+						}}
+					/>
+				)}
 			</div>
 		</Router>
 	);

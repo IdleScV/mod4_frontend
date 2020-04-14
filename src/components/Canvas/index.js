@@ -2,7 +2,10 @@ import React, { useState, useEffect } from 'react';
 // import CanvasDraw from 'react-canvas-draw';
 
 import Slider from '@material-ui/core/Slider';
-import ButtonGroup from '@material-ui/core/ButtonGroup';
+import UndoIcon from '@material-ui/icons/Undo';
+
+import ClearIcon from '@material-ui/icons/Clear';
+
 import Button from '@material-ui/core/Button';
 import { CirclePicker } from 'react-color';
 
@@ -11,10 +14,10 @@ import { withAuthorization } from '../Session';
 import './canvas.css';
 
 function Canvas(props) {
-	const [color, colorSet] = useState('#f44336');
-	const [brushRadius, brushRadiusSet] = useState(5);
-	const [backgroundColor, backgroundColorSet] = useState('#000000');
-	const [lazyRadius, lazyRadiusSet] = useState(10);
+	const [ color, colorSet ] = useState('#f44336');
+	const [ brushRadius, brushRadiusSet ] = useState(5);
+	// eslint-disable-next-line
+	const [ backgroundColor, backgroundColorSet ] = useState('#000000');
 
 	let CanvasDraw = props.CanvasDraw;
 	let canvasSet = props.canvasSet;
@@ -25,7 +28,7 @@ function Canvas(props) {
 	let allPlayerDrawingsSet = props.allPlayerDrawingsSet;
 
 	let URL = 'https://draw-off-app-api.herokuapp.com/drawings';
-	let REFRESHURL = 'https://draw-off-app-api.herokuapp.com/refresh_images/'
+	let REFRESHURL = 'https://draw-off-app-api.herokuapp.com/refresh_images/';
 
 	useEffect(
 		() => {
@@ -37,7 +40,8 @@ function Canvas(props) {
 
 			checkTime();
 		},
-		[counter]
+		// eslint-disable-next-line
+		[ counter ]
 	);
 
 	function PostImage() {
@@ -60,78 +64,72 @@ function Canvas(props) {
 	}
 
 	function processReturn(data) {
-
 		if (data.message) {
-
-			setTimeout(function () { refreshImageGetter() }, 500);
+			setTimeout(function() {
+				refreshImageGetter();
+			}, 500);
 		} else {
-
 			allPlayerDrawingsSet(data);
 		}
 	}
 
 	function refreshImageGetter() {
-		fetch(REFRESHURL + roomNumber)
-			.then((response) => response.json())
-			.then((json) => processReturn(json));
+		fetch(REFRESHURL + roomNumber).then((response) => response.json()).then((json) => processReturn(json));
 	}
 
 	return (
 		<div className="canvas">
-			<ButtonGroup color="primary" aria-label="outlined primary button group">
-				<Button
-					onClick={() => {
-						canvas.clear();
-					}}
-				>
-					Clear
-				</Button>
-				<Button
-					onClick={() => {
-						canvas.undo();
-					}}
-				>
-					Undo
-				</Button>
-			</ButtonGroup>
-			<CirclePicker
-				circleSize={25}
-				onChange={(color) => {
-					colorSet(color.hex);
-					console.log(color.hex);
-				}}
-			/>
-			<div className="canvasSliders">
-				<Slider
-					min={1}
-					value={brushRadius}
-					max={20}
-					step={0.1}
-					aria-labelledby="continuous-slider"
-					onChange={(e, newValue) => {
-						brushRadiusSet(newValue);
+			<div className="controls">
+				<div className="buttons">
+					<Button
+						color="primary"
+						startIcon={<UndoIcon />}
+						onClick={() => {
+							canvas.undo();
+						}}
+					>
+						Undo
+					</Button>
+					<Button
+						color="secondary"
+						startIcon={<ClearIcon />}
+						onClick={() => {
+							canvas.clear();
+						}}
+					>
+						Clear
+					</Button>
+				</div>
+				<CirclePicker
+					circleSize={25}
+					onChange={(color) => {
+						colorSet(color.hex);
+						console.log(color.hex);
 					}}
 				/>
-				<Slider
-					min={1}
-					value={lazyRadius}
-					max={50}
-					step={1}
-					aria-labelledby="continuous-slider"
-					onChange={(e, newValue) => {
-						lazyRadiusSet(newValue);
-					}}
-				/>
+				<div className="canvasSliders">
+					<Slider
+						min={1}
+						value={brushRadius}
+						max={20}
+						step={0.1}
+						aria-labelledby="continuous-slider"
+						onChange={(e, newValue) => {
+							brushRadiusSet(newValue);
+						}}
+					/>
+				</div>
 			</div>
 			<CanvasDraw
 				ref={(canvasDraw) => canvasSet(canvasDraw)}
 				canvasWidth={600}
 				canvasHeight={400}
 				brushColor={color}
-				lazyRadius={lazyRadius}
+				lazyRadius={10}
 				backgroundColor={backgroundColor}
 				brushRadius={brushRadius}
 				hideGrid={true}
+				className="drawingcanvas"
 			/>
 		</div>
 	);

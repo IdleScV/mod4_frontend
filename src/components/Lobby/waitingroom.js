@@ -10,21 +10,31 @@ const URL = 'https://draw-off-app-api.herokuapp.com/rooms/';
 const LEAVEURL = 'https://draw-off-app-api.herokuapp.com/user_rooms/';
 const useStyles = makeStyles((theme) => ({
 	root: {
-		flexGrow: 1
+		flexGrow: 1,
+		margin: 'auto auto'
 	},
-	paper: {
+	filled: {
 		padding: theme.spacing(3),
 		textAlign: 'center',
-		color: theme.palette.text.secondary,
-		margin: '5px 10px'
+		height: '40px',
+		margin: '5px 10px',
+		backgroundColor: '#3fff4b'
+	},
+	empty: {
+		padding: theme.spacing(3),
+		textAlign: 'center',
+		height: '40px',
+		margin: '5px 10px',
+		backgroundColor: ' #fd5858 ',
+		lineHeight: '23px'
 	}
 }));
 
 function WaitingRoom({ roomNumber, gameProgressSet, firebase, roomNumberSet, isHost, isHostSet }) {
-	const [users, usersSet] = useState([]);
-	const [roomStatus, roomStatusSet] = useState('Loading...');
-	const [host, hostSet] = useState(null);
-	const [maxNum, maxNumSet] = useState(null);
+	const [ users, usersSet ] = useState([]);
+	const [ roomStatus, roomStatusSet ] = useState('Loading...');
+	const [ host, hostSet ] = useState(null);
+	const [ maxNum, maxNumSet ] = useState(null);
 
 	const classes = useStyles(); //used for css
 	useEffect(() => {
@@ -44,6 +54,7 @@ function WaitingRoom({ roomNumber, gameProgressSet, firebase, roomNumberSet, isH
 			clearInterval(intervalId);
 			console.log('no refresh');
 		};
+		// eslint-disable-next-line
 	}, []);
 
 	function showData(data) {
@@ -113,36 +124,46 @@ function WaitingRoom({ roomNumber, gameProgressSet, firebase, roomNumberSet, isH
 	return (
 		<div className="lobby">
 			<div className="roominfo">
-				<div>Room Number is: {roomNumber}</div>
-				<div>Hosted By: {host}</div>
-				<div>Room Status: {roomStatus}</div>
-			</div>
-			{users && maxNum ? (
-				<div className={classes.root}>
-					<Grid container item xs={5} direction="row" justify="center" alignItems="center" className="UserGrid">
-						{/* USERS THAT EXIST */}
-						{users.map((user) => (
-							<Grid item xs={3} sm={6}>
-								<Paper className={classes.paper}>{user}</Paper>
-							</Grid>
-						))}
-						{/* USERS THAT DON"T EXIST */}
-						{new Array(maxNum - users.length).fill('').map((empty_user) => (
-							<Grid item xs={3} sm={6}>
-								<Paper className={classes.paper}>empty</Paper>
-							</Grid>
-						))}
-					</Grid>
+				<div className="title">
+					Room Number<div>{roomNumber}</div>
 				</div>
-			) : null}
-			{/* Still inside if gameProgress === 'open' */}
-			<div className="roomcontrols">
-				{isHost ? <Button onClick={startGame}>Start Game</Button> : null}
+				<div className="title">
+					Hosted By<div>{host}</div>
+				</div>
+				<div className="title">
+					Room Status: <div>{roomStatus}</div>
+				</div>
+				<div className="roomcontrols">
+					{isHost ? (
+						<Button onClick={startGame} variant="contained" color="primary">
+							Start Game
+						</Button>
+					) : null}
 
-				<Link to={ROUTES.CREATEORJOINROOM}>
-					<Button onClick={leavePagePost}>Leave Room</Button>
-				</Link>
+					<Link to={ROUTES.CREATEORJOINROOM}>
+						<Button onClick={leavePagePost} variant="contained" color="secondary">
+							Leave Room
+						</Button>
+					</Link>
+				</div>
 			</div>
+
+			{users && maxNum ? (
+				<Grid container item xs={12} direction="row" justify="center" alignItems="center" className={classes.root}>
+					{/* USERS THAT EXIST */}
+					{users.map((user) => (
+						<Grid item xs={6} sm={3}>
+							<Paper className={classes.filled}>{user}</Paper>
+						</Grid>
+					))}
+					{/* USERS THAT DON"T EXIST */}
+					{new Array(maxNum - users.length).fill('').map((empty_user) => (
+						<Grid item xs={6} sm={3}>
+							<Paper className={classes.empty}>Invite someone!</Paper>
+						</Grid>
+					))}
+				</Grid>
+			) : null}
 		</div>
 	);
 }

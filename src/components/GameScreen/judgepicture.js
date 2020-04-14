@@ -4,10 +4,10 @@ import CanvasDraw from 'react-canvas-draw';
 import Review from './review.js';
 import { withAuthorization } from '../Session';
 
-const REVIEWS = "https://draw-off-app-api.herokuapp.com/reviews"
+const REVIEWS = 'https://draw-off-app-api.herokuapp.com/reviews';
 
 function JudgePicture(props) {
-	const [currentImage, currentImageSet] = useState('');
+	const [ currentImage, currentImageSet ] = useState('');
 
 	function loadPicture() {
 		if (props.drawingData && currentImage) {
@@ -44,19 +44,21 @@ function JudgePicture(props) {
 	return (
 		<div>
 			{props.drawingData ? (
-				<div>
+				<div className="judginpicture">
 					<CanvasDraw
 						ref={(canvas) => currentImageSet(canvas)}
 						canvasWidth={600}
 						canvasHeight={400}
 						hideGrid={true}
 						disabled
+						className="judgincanvas"
+						backgroundColor="black"
 					/>
 					<Review postReview={postReview} currentImage={currentImage} />
 				</div>
 			) : (
-					'Loading'
-				)}
+				'Loading'
+			)}
 		</div>
 	);
 }
