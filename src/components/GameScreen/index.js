@@ -68,7 +68,7 @@ function GameScreen({ gameProgress, gameProgressSet, roomNumber, isHost, firebas
 		let firebase_id = firebase.auth.W;
 		let num = roomNumber;
 
-		fetch(HOSTNEW + num, {
+		fetch(GUESTNEW + num, {
 			method: 'POST',
 			headers: {
 				Accept: 'application/json',

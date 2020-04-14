@@ -34,17 +34,17 @@ function WaitingRoom({ roomNumber, gameProgressSet, firebase, roomNumberSet, isH
 			fetchUsers();
 		}, 1000);
 
+		function fetchUsers() {
+			console.log('fetching user');
+			fetch(`${URL}${roomNumber}`).then((response) => response.json()).then((json) => showData(json));
+		}
+
 		// runs return function when component unmounts
 		return () => {
 			clearInterval(intervalId);
 			console.log('no refresh');
 		};
 	}, []);
-
-	function fetchUsers() {
-		console.log('fetching user');
-		fetch(`${URL}${roomNumber}`).then((response) => response.json()).then((json) => showData(json));
-	}
 
 	function showData(data) {
 		// Checks if room exist

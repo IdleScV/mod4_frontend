@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Radio from '@material-ui/core/Radio';
@@ -7,17 +7,10 @@ import TextField from '@material-ui/core/TextField';
 function Review({ postReview, currentImage }) {
 	const [ value, setValue ] = useState('upvote');
 	const [ comment, setComment ] = useState('');
-	const [ current, currentSet ] = useState(currentImage);
+
 	const handleChange = (event) => {
 		setValue(event.target.value);
 	};
-	useEffect(
-		() => {
-			setValue('upvote');
-			setComment('');
-		},
-		[ current ]
-	);
 
 	return (
 		<div>
@@ -33,7 +26,14 @@ function Review({ postReview, currentImage }) {
 					setComment(e.target.value);
 				}}
 			/>
-			<button onClick={() => postReview(value, comment)}>Submit</button>
+			<button
+				onClick={() => {
+					postReview(value, comment);
+					setComment('');
+				}}
+			>
+				Submit
+			</button>
 		</div>
 	);
 }
