@@ -8,29 +8,29 @@ function ReviewPhase(props) {
 	const [ drawingData, drawingDataSet ] = useState(null);
 
 	useEffect(() => {
-		fetchReviews();
-	}, []);
-
-	function fetchReviews() {
-		let reviews_needed = props.numPeople * props.numPeople;
-		let roomNumber = props.roomNumber;
-		fetch(URL, {
-			method: 'POST',
-			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify({ reviews_needed: reviews_needed, roomNumber: roomNumber })
-		})
-			.then((response) => response.json())
-			.then((json) => checkIfNeedRefresh(json));
-	}
-
-	function checkIfNeedRefresh(data) {
-		if (data.message) {
-			fetchReviews();
-		} else {
-			drawingDataSet(data);
-			drawingsFetchedSet(true);
+		function fetchReviews() {
+			let reviews_needed = props.numPeople * props.numPeople;
+			let roomNumber = props.roomNumber;
+			fetch(URL, {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({ reviews_needed: reviews_needed, roomNumber: roomNumber })
+			})
+				.then((response) => response.json())
+				.then((json) => checkIfNeedRefresh(json));
 		}
-	}
+		function checkIfNeedRefresh(data) {
+			if (data.message) {
+				fetchReviews();
+			} else {
+				drawingDataSet(data);
+				drawingsFetchedSet(true);
+			}
+		}
+
+		fetchReviews();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 
 	return (
 		<div>{drawingsFetched ? <DrawingCollection drawingData={drawingData} isHost={props.isHost} /> : 'Loading'}</div>

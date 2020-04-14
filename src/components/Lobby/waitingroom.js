@@ -44,6 +44,7 @@ function WaitingRoom({ roomNumber, gameProgressSet, firebase, roomNumberSet, isH
 			clearInterval(intervalId);
 			console.log('no refresh');
 		};
+		// eslint-disable-next-line
 	}, []);
 
 	function showData(data) {

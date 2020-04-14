@@ -15,6 +15,7 @@ function DrawingCard(props) {
 
 			loadPicture();
 		},
+		// eslint-disable-next-line
 		[ currentImage ]
 	);
 	let Like = 0;
@@ -34,7 +35,12 @@ function DrawingCard(props) {
 						disabled
 					/>
 					<div className="likes">
-						👍: {Like} 👎: {Dislike}
+						<span role="img" aria-label="thumbs up">
+							👍
+						</span>: {Like}
+						<span role="img" aria-label="thumbs down">
+							👎
+						</span>: {Dislike}
 					</div>
 					<div className="comments">
 						<h3>User Reviews:</h3>

@@ -9,22 +9,22 @@ import { CirclePicker } from 'react-color';
 import { withAuthorization } from '../Session';
 
 import './canvas.css';
-
+let URL = 'http://localhost:3000/drawings';
 function Canvas(props) {
+	// eslint-disable-next-line
+	const [ backgroundColor, backgroundColorSet ] = useState('#000000');
 	const [ color, colorSet ] = useState('#f44336');
 	const [ brushRadius, brushRadiusSet ] = useState(5);
-	const [ backgroundColor, backgroundColorSet ] = useState('#000000');
 	const [ lazyRadius, lazyRadiusSet ] = useState(10);
 
-	let CanvasDraw = props.CanvasDraw;
-	let canvasSet = props.canvasSet;
-	let canvas = props.canvas;
-	let counter = props.counter;
-	let roomNumber = props.roomNumber;
-	let promptId = props.promptId;
-	let allPlayerDrawingsSet = props.allPlayerDrawingsSet;
-
-	let URL = 'http://localhost:3000/drawings';
+	const [ CanvasDraw, canvasSet, canvas, counter, roomNumber, promptId, allPlayerDrawingsSet ] = props;
+	// let CanvasDraw = props.CanvasDraw;
+	// let canvasSet = props.canvasSet;
+	// let canvas = props.canvas;
+	// let counter = props.counter;
+	// let roomNumber = props.roomNumber;
+	// let promptId = props.promptId;
+	// let allPlayerDrawingsSet = props.allPlayerDrawingsSet;
 
 	useEffect(
 		() => {
@@ -33,9 +33,9 @@ function Canvas(props) {
 					PostImage();
 				}
 			}
-
 			checkTime();
 		},
+		// eslint-disable-next-line
 		[ counter ]
 	);
 
@@ -59,16 +59,9 @@ function Canvas(props) {
 	}
 
 	function processReturn(data) {
-		// if (data.message) {
-		// 	console.log(data.message);
-		// } else {
-		// 	console.log(data);
-		// }
 		if (data.message) {
-			// console.log('No images', data);
 			refreshImageGetter();
 		} else {
-			// console.log('set images');
 			allPlayerDrawingsSet(data);
 		}
 	}
@@ -96,14 +89,6 @@ function Canvas(props) {
 				>
 					Undo
 				</Button>
-				{/* Using this to judge images later */}
-				{/* <Button
-					onClick={() => {
-						canvas.loadSaveData(savedDrawing, false);
-					}}
-				>
-					Load Saved Image
-				</Button> */}
 			</ButtonGroup>
 			<CirclePicker
 				circleSize={25}

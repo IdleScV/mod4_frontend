@@ -9,14 +9,12 @@ function JudgingPhase(props) {
 	useEffect(() => {
 		if (props.allPlayerDrawings.length > 0) {
 			totalImageNumSet(props.allPlayerDrawings.length);
-			// console.log('Drawing Received');
-		} else {
-			// console.log('No Drawings Yet');
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	function nextImage() {
-		if (currentImageNum + 1 == totalImageNum) {
+		if (currentImageNum + 1 === totalImageNum) {
 			props.judgingOverSet(true);
 		} else {
 			currentImageNumSet(currentImageNum + 1);
