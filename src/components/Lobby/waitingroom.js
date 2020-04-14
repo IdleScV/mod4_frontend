@@ -20,11 +20,11 @@ const useStyles = makeStyles((theme) => ({
 	}
 }));
 
-function WaitingRoom({ roomNumber, gameProgressSet, firebase, roomNumberSet }) {
+function WaitingRoom({ roomNumber, gameProgressSet, firebase, roomNumberSet, isHost, isHostSet }) {
 	const [ users, usersSet ] = useState([]);
 	const [ roomStatus, roomStatusSet ] = useState('Loading...');
 	const [ host, hostSet ] = useState(null);
-	const [ isHost, isHostSet ] = useState(null);
+	const [ maxNum, maxNumSet ] = useState(null);
 
 	const classes = useStyles(); //used for css
 	useEffect(() => {
@@ -34,17 +34,17 @@ function WaitingRoom({ roomNumber, gameProgressSet, firebase, roomNumberSet }) {
 			fetchUsers();
 		}, 1000);
 
+		function fetchUsers() {
+			console.log('fetching user');
+			fetch(`${URL}${roomNumber}`).then((response) => response.json()).then((json) => showData(json));
+		}
+
 		// runs return function when component unmounts
 		return () => {
 			clearInterval(intervalId);
 			console.log('no refresh');
 		};
 	}, []);
-
-	function fetchUsers() {
-		console.log('fetching user');
-		fetch(`${URL}${roomNumber}`).then((response) => response.json()).then((json) => showData(json));
-	}
 
 	function showData(data) {
 		// Checks if room exist
@@ -53,7 +53,7 @@ function WaitingRoom({ roomNumber, gameProgressSet, firebase, roomNumberSet }) {
 			roomStatusSet(data['room_status']);
 			hostSet(data['host'].username);
 			usersSet(data['user_list'].map((user) => user['username']));
-
+			maxNumSet(data.maxNum);
 			// If room is open, continues to set room to open
 			if (data['room_status'] === 'open') {
 				gameProgressSet('open');
@@ -69,6 +69,7 @@ function WaitingRoom({ roomNumber, gameProgressSet, firebase, roomNumberSet }) {
 			}
 		} else {
 			// room does not exist. redirects to createorJoinRoom component
+
 			roomNumberSet(null);
 		}
 	}
@@ -116,7 +117,7 @@ function WaitingRoom({ roomNumber, gameProgressSet, firebase, roomNumberSet }) {
 				<div>Hosted By: {host}</div>
 				<div>Room Status: {roomStatus}</div>
 			</div>
-			{users ? (
+			{users && maxNum ? (
 				<div className={classes.root}>
 					<Grid container item xs={5} direction="row" justify="center" alignItems="center" className="UserGrid">
 						{/* USERS THAT EXIST */}
@@ -126,7 +127,7 @@ function WaitingRoom({ roomNumber, gameProgressSet, firebase, roomNumberSet }) {
 							</Grid>
 						))}
 						{/* USERS THAT DON"T EXIST */}
-						{new Array(8 - users.length).fill('').map((empty_user) => (
+						{new Array(maxNum - users.length).fill('').map((empty_user) => (
 							<Grid item xs={3} sm={6}>
 								<Paper className={classes.paper}>empty</Paper>
 							</Grid>

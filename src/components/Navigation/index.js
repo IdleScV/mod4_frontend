@@ -5,49 +5,79 @@ import SignOutButton from '../SignOut';
 import * as ROUTES from '../../constants/routes';
 
 import { AuthUserContext } from '../Session';
+import './index.css';
 
-const Navigation = () => (
-	<div>
-		<AuthUserContext.Consumer>
-			{(authUser) => (authUser ? <NavigationAuth /> : <NavigationNonAuth />)}
-		</AuthUserContext.Consumer>
-	</div>
-);
+import Button from '@material-ui/core/Button';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
 
-const NavigationAuth = () => (
-	<ul>
-		<li>
-			<Link to={ROUTES.LANDING}>Landing</Link>
-		</li>
-		<li>
-			<Link to={ROUTES.HOME}>Home</Link>
-		</li>
-		<li>
-			<Link to={ROUTES.ACCOUNT}>Account</Link>
-		</li>
-		<li>
-			<Link to={ROUTES.ADMIN}>Admin</Link>
-		</li>
+const Navigation = () => {
+	return (
+		<div className="nav_menu">
+			<AuthUserContext.Consumer>
+				{(authUser) => (authUser ? <NavigationAuth /> : <NavigationNonAuth />)}
+			</AuthUserContext.Consumer>
+		</div>
+	);
+};
 
-		<li>
-			<Link to={ROUTES.CREATEORJOINROOM}>Create or Join Room</Link>
-		</li>
-		<li>
-			<SignOutButton />
-		</li>
-	</ul>
-);
+const NavigationAuth = () => {
+	const [ anchorEl, setAnchorEl ] = React.useState(null);
+	const handleClick = (event) => {
+		setAnchorEl(event.currentTarget);
+	};
+	const handleClose = () => {
+		setAnchorEl(null);
+	};
+	return (
+		<div>
+			<Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
+				Menu
+			</Button>
+			<Menu id="simple-menu" anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>
+				<MenuItem>
+					<Link to={ROUTES.HOME}>Home</Link>
+				</MenuItem>
+				{/* Commented out Account page */}
+				{/* <MenuItem>
+					<Link to={ROUTES.ACCOUNT}>Account</Link>
+				</MenuItem> */}
 
-const NavigationNonAuth = () => (
-	<ul>
-		<li>
-			<Link to={ROUTES.LANDING}>Landing</Link>
-		</li>
+				<MenuItem>
+					<Link to={ROUTES.CREATEORJOINROOM}>Create or Join Room</Link>
+				</MenuItem>
+				<MenuItem>
+					<SignOutButton />
+				</MenuItem>
+			</Menu>
+		</div>
+	);
+};
 
-		<li>
-			<Link to={ROUTES.SIGN_IN}>Sign In</Link>
-		</li>
-	</ul>
-);
+const NavigationNonAuth = () => {
+	const [ anchorEl, setAnchorEl ] = React.useState(null);
+	const handleClick = (event) => {
+		setAnchorEl(event.currentTarget);
+	};
+	const handleClose = () => {
+		setAnchorEl(null);
+	};
+	return (
+		<div>
+			<Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
+				Menu
+			</Button>
+			<Menu id="simple-menu" anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>
+				<MenuItem>
+					<Link to={ROUTES.LANDING}>Landing</Link>
+				</MenuItem>
+
+				<MenuItem>
+					<Link to={ROUTES.SIGN_IN}>Sign In</Link>
+				</MenuItem>
+			</Menu>
+		</div>
+	);
+};
 
 export default Navigation;

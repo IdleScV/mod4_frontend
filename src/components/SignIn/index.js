@@ -7,12 +7,15 @@ import { PasswordForgetLink } from '../PasswordForget';
 import { withFirebase } from '../Firebase';
 import * as ROUTES from '../../constants/routes';
 
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+
+import './index.css';
+
 const SignInPage = () => (
 	<div>
-		<h1>SignInPage</h1>
+		<h4>Sign In Form</h4>
 		<SignInForm />
-		<PasswordForgetLink />
-		<SignUpLink />
 	</div>
 );
 
@@ -51,14 +54,38 @@ class SignInFormBase extends React.Component {
 		const { email, password, error } = this.state;
 		const isInvalid = password === '' || email === '';
 		return (
-			<form onSubmit={this.onSubmit}>
-				<input name="email" value={email} onChange={this.onChange} type="text" placeholder="Email Address" />
-				<input name="password" value={password} onChange={this.onChange} type="password" placeholder="Password" />
-				<button disabled={isInvalid} type="submit">
-					Sign In
-				</button>
-				{error ? <p>{error.message}</p> : null}
-			</form>
+			<div classname="signinpage">
+				<form onSubmit={this.onSubmit} className="signin">
+					<TextField
+						className="textinput"
+						id="standard-basic"
+						label="Email"
+						name="email"
+						value={email}
+						onChange={this.onChange}
+					/>
+					<br />
+					<TextField
+						className="textinput"
+						id="standard-basic"
+						label="Password"
+						name="password"
+						value={password}
+						onChange={this.onChange}
+						type="password"
+					/>
+					<br />
+					<Button type="submit" disabled={isInvalid}>
+						Sign In
+					</Button>
+
+					{error ? <p>{error.message}</p> : null}
+				</form>
+				<div className="xtralinks">
+					<PasswordForgetLink />
+					<SignUpLink />
+				</div>
+			</div>
 		);
 	}
 }

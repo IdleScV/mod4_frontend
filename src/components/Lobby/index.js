@@ -10,6 +10,7 @@ const URL = 'http://localhost:3000/rooms/';
 
 function Lobby({ roomNumber, firebase, roomNumberSet }) {
 	const [ gameProgress, gameProgressSet ] = useState(null);
+	const [ isHost, isHostSet ] = useState(null);
 
 	function fetchUsers() {
 		console.log('fetching user');
@@ -26,7 +27,7 @@ function Lobby({ roomNumber, firebase, roomNumberSet }) {
 				gameProgressSet(1);
 			}
 		} else {
-			// room does not exist. redirects to createorJoinRoom component
+			console.log(data.message);
 			roomNumberSet(null);
 		}
 	}
@@ -35,21 +36,52 @@ function Lobby({ roomNumber, firebase, roomNumberSet }) {
 
 	return (
 		<div>
-			{gameProgress ? gameProgress === 'open' ? (
+			{gameProgress === 'open' ? (
+				<WaitingRoom
+					roomNumber={roomNumber}
+					firebase={firebase}
+					roomNumberSet={roomNumberSet}
+					gameProgressSet={gameProgressSet}
+					isHost={isHost}
+					isHostSet={isHostSet}
+				/>
+			) : gameProgress === 1 ? (
+				<GameScreen
+					isHost={isHost}
+					firebase={firebase}
+					gameProgress={gameProgress}
+					gameProgressSet={gameProgressSet}
+					roomNumber={roomNumber}
+					roomNumberSet={roomNumberSet}
+				/>
+			) : (
+				'Loading...'
+			)}
+
+			{/* {gameProgress ? gameProgress === 'open' ? (
 				// if Room is open, sends user to waiting room
 				<WaitingRoom
 					roomNumber={roomNumber}
 					firebase={firebase}
 					roomNumberSet={roomNumberSet}
 					gameProgressSet={gameProgressSet}
+					isHost={isHost}
+					isHostSet={isHostSet}
 				/>
 			) : (
 				// If Gameprogress does not equal 'open' but is true
-				<GameScreen gameProgress={gameProgress} gameProgressSet={gameProgressSet} roomNumber={roomNumber} />
+				<GameScreen
+					isHost={isHost}
+					firebase={firebase}
+					gameProgress={gameProgress}
+					gameProgressSet={gameProgressSet}
+					roomNumber={roomNumber}
+					roomNumberSet={roomNumberSet}
+				/>
 			) : (
 				// If Gameprogress is null
 				<div>Loading...</div>
-			)}
+			)} */}
 		</div>
 	);
 }
