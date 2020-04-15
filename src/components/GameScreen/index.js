@@ -13,7 +13,7 @@ const RANDOMPROMPT = 'https://draw-off-app-api.herokuapp.com/random_prompt/';
 
 function GameScreen({ gameProgress, gameProgressSet, roomNumber, isHost, firebase, roomNumberSet }) {
 	const [ canvas, canvasSet ] = useState('');
-	const [ counter, setCounter ] = useState(3);
+	const [ counter, setCounter ] = useState(75);
 	const [ promptData, promptDataSet ] = useState({});
 	const [ allPlayerDrawings, allPlayerDrawingsSet ] = useState(null);
 	const [ judgingOver, judgingOverSet ] = useState(false);

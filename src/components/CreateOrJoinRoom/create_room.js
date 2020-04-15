@@ -9,9 +9,9 @@ import InputLabel from '@material-ui/core/InputLabel';
 const URL = 'https://draw-off-app-api.herokuapp.com/rooms/';
 
 export default function CreateRoom({ userData, firebaseId, roomNumberSet }) {
-	const [roomExist, roomExistSet] = useState(false);
-	const [roomNum, roomNumSet] = useState(null);
-	const [maxPeople, maxPeopleSet] = useState(2);
+	const [ roomExist, roomExistSet ] = useState(false);
+	const [ roomNum, roomNumSet ] = useState(null);
+	const [ maxPeople, maxPeopleSet ] = useState(2);
 
 	function handleSubmit() {
 		let numPeople = maxPeople;
@@ -61,6 +61,12 @@ export default function CreateRoom({ userData, firebaseId, roomNumberSet }) {
 				<MenuItem value={6}>Six</MenuItem>
 				<MenuItem value={7}>Seven</MenuItem>
 				<MenuItem value={8}>Eight</MenuItem>
+				<MenuItem value={9}>Nine</MenuItem>
+				<MenuItem value={10}>Ten</MenuItem>
+				<MenuItem value={11}>Eleven</MenuItem>
+				<MenuItem value={12}>Twelve</MenuItem>
+				<MenuItem value={13}>Thirteen</MenuItem>
+				<MenuItem value={14}>Fourteen</MenuItem>
 			</Select>
 
 			<div>
@@ -69,12 +75,12 @@ export default function CreateRoom({ userData, firebaseId, roomNumberSet }) {
 						Create Room
 					</Button>
 				) : (
-						<Button variant="outlined" color="primary">
-							<Link to={`/room/${roomNum}`} style={{ textDecoration: 'none', color: 'black' }}>
-								Enter Room
+					<Button variant="outlined" color="primary">
+						<Link to={`/room/${roomNum}`} style={{ textDecoration: 'none', color: 'black' }}>
+							Enter Room
 						</Link>
-						</Button>
-					)}
+					</Button>
+				)}
 			</div>
 		</div>
 	);

@@ -9,7 +9,7 @@ function DrawingCard(props) {
 		() => {
 			function loadPicture() {
 				if (currentImage) {
-					currentImage.loadSaveData(props.drawing.drawing, false);
+					currentImage.loadSaveData(props.drawing.drawing, true);
 				}
 			}
 
@@ -35,19 +35,27 @@ function DrawingCard(props) {
 						className="reviewcanvas"
 					/>
 					<div className="description">
-						<div className="prompttitle"><b> "{props.prompt.prompt}" </b></div>
-						<div className="author"><p style={{fontSize: 36}}><b>By: {props.creator.username} </b></p></div>
+						<div className="prompttitle">
+							<b> "{props.prompt.prompt}" </b>
+						</div>
+						<div className="author">
+							<p style={{ fontSize: 36 }}>
+								<b>By: {props.creator.username} </b>
+							</p>
+						</div>
 					</div>
 					<div className="likes">
 						<div className="thumbsUp">
-						<span role="img" aria-label="thumbsup">
-							👍
-						</span> : {Like}
+							<span role="img" aria-label="thumbsup">
+								👍
+							</span>{' '}
+							: {Like}
 						</div>
 						<div className="thumbsDown">
-						<span role="img" aria-label="thumbsdown">
-							👎
-						</span> : {Dislike}
+							<span role="img" aria-label="thumbsdown">
+								👎
+							</span>{' '}
+							: {Dislike}
 						</div>
 					</div>
 					<div className="reviews">
