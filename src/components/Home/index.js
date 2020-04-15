@@ -22,7 +22,7 @@ const HomePage = (props) => {
 	return (
 		<div className="homepage">
 			<div className="drawingcollection">
-				{data ? (
+				{!data.message ? (
 					<HomeDrawingCollection data={data} />
 				) : (
 					<div>You have not yet made any drawings... play some games!</div>

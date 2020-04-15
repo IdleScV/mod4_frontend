@@ -61,12 +61,6 @@ export default function CreateRoom({ userData, firebaseId, roomNumberSet }) {
 				<MenuItem value={6}>Six</MenuItem>
 				<MenuItem value={7}>Seven</MenuItem>
 				<MenuItem value={8}>Eight</MenuItem>
-				<MenuItem value={9}>Nine</MenuItem>
-				<MenuItem value={10}>Ten</MenuItem>
-				<MenuItem value={11}>Eleven</MenuItem>
-				<MenuItem value={12}>Twelve</MenuItem>
-				<MenuItem value={13}>Thirteen</MenuItem>
-				<MenuItem value={14}>Fourteen</MenuItem>
 			</Select>
 
 			<div>
