@@ -40,6 +40,7 @@ function Review({ postReview, currentImage }) {
 				rows={6}
 				label="Write a Review . . ."
 				value={comment}
+				placeholder="🙏🏻😇🙏🏻 Be Nice . . . . . or crush their hopes and dreams 🔥😈🔥"
 				variant="outlined"
 				onChange={(e) => {
 					setComment(e.target.value);
