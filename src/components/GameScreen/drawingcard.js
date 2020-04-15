@@ -35,8 +35,8 @@ function DrawingCard(props) {
 						className="reviewcanvas"
 					/>
 					<div className="description">
-						<div className="prompttitle"> "{props.prompt.prompt}" </div>
-						<div className="author">By: {props.creator.username}</div>
+						<div className="prompttitle"><b> "{props.prompt.prompt}" </b></div>
+						<div className="author"><p style={{fontSize: 36}}><b>By: {props.creator.username} </b></p></div>
 					</div>
 					<div className="likes">
 						<div className="thumbsUp">
