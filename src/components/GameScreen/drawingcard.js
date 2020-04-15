@@ -9,7 +9,7 @@ function DrawingCard(props) {
 		() => {
 			function loadPicture() {
 				if (currentImage) {
-					currentImage.loadSaveData(props.drawing.drawing, true);
+					currentImage.loadSaveData(props.drawing.drawing, false);
 				}
 			}
 
