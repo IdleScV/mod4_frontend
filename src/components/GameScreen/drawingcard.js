@@ -24,7 +24,7 @@ function DrawingCard(props) {
 	return (
 		<div>
 			{props.drawing.drawing ? (
-				<div className="drawingcard">
+				<div className="drawingcard" key={props.key}>
 					<CanvasDraw
 						ref={(canvas) => currentImageSet(canvas)}
 						canvasWidth={400}
@@ -39,12 +39,16 @@ function DrawingCard(props) {
 						<div className="author">By: {props.creator.username}</div>
 					</div>
 					<div className="likes">
+						<div className="thumbsUp">
 						<span role="img" aria-label="thumbsup">
 							👍
-						</span>: {Like}
+						</span> : {Like}
+						</div>
+						<div className="thumbsDown">
 						<span role="img" aria-label="thumbsdown">
 							👎
-						</span>: {Dislike}
+						</span> : {Dislike}
+						</div>
 					</div>
 					<div className="reviews">
 						<div className="comments">

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import DrawingCollection from './drawingcollection';
 import './reviewphase.css';
 import Emoji from "react-emoji-render";
-
 const URL = 'https://draw-off-app-api.herokuapp.com/round_reviews';
 
 function ReviewPhase(props) {
@@ -41,7 +40,7 @@ function ReviewPhase(props) {
 				<DrawingCollection drawingData={drawingData} isHost={props.isHost} />
 			) : (
 				<>
-					<div id="loader"><Emoji text="🍆🍆🍆🍆💦🍆🍆🍆🍆" /></div>
+					<div id="loader"><Emoji text="" /></div>
 					<h3>Waiting for all users to submit reviews</h3>
 				</>
 			)}

@@ -36,6 +36,9 @@ const NavigationAuth = () => {
 			</Button>
 			<Menu id="simple-menu" anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>
 				<MenuItem>
+					<Link to={ROUTES.LANDING}>About</Link>
+				</MenuItem>
+				<MenuItem>
 					<Link to={ROUTES.HOME}>Home</Link>
 				</MenuItem>
 				{/* Commented out Account page */}

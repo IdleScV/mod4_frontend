@@ -34,16 +34,16 @@ export default function Landing() {
 				<h2>About . . . </h2>
 				<p>
 					Welcome to <b>Draw-Off</b>, an application where you and other users can have a friendly "draw off"
-					contest and see who can draw the best picture:<br /> (based upon the number of upvotes a user's drawing
-					receives from their peers!)
-				</p>
+					contest and see who can draw the best picture:<br /> </p>
+					<p style={{fontSize: 13, textAlign: "center"}}>(Which will be based upon the number of upvotes a drawing
+					receives from their peers!)</p>
 				<br />
 				<div>
 					<h3>How to Begin?</h3>
 					<p>
-						If you haven't already, <Link to={ROUTES.SIGN_UP}>sign up</Link> and create an account to get started!
-						After doing so you as a user can either "Host a Room" or "Join a Room" by clicking on the menu tab
-						(top-right) and clicking <b>"create or join"</b>
+						If you haven't already, <Link to={ROUTES.SIGN_UP}><u>sign-up</u></Link> and create an account to get started!<br/>
+						After doing so, you can either <em>"host"</em> or <em>"join"</em> a room by clicking on the <b>menu</b> tab
+						(top-left) and clicking <b>"Create or Join Room"</b>
 					</p>
 					<br />
 					<h3>Quick Notes:</h3>

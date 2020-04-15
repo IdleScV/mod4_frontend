@@ -75,7 +75,7 @@ export default function JoinRoom({ userData, firebaseId, roomNumberSet }) {
 						<Button variant="outlined" color="primary">
 							<Link to={`/room/${number}`} style={{ textDecoration: 'none', color: 'black' }}>
 								Join Room
-						</Link>
+							</Link>
 						</Button>
 					)}
 			</div>
